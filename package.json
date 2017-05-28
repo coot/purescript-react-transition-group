@@ -1,0 +1,37 @@
+{
+  "name": "purescript-react-transition-group",
+  "version": "0.1.0",
+  "description": "purescript bindings for react-transition-group",
+  "main": "src/React/ReactTransitionGroup.purs",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/coot/purescript-react-transition-group.git"
+  },
+  "keywords": [
+    "react",
+    "transition",
+    "addons",
+    "transition-group",
+    "animation",
+    "css",
+    "transitions",
+    "purescript"
+  ],
+  "author": "Marcin Szamotulski",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/coot/purescript-react-transition-group/issues"
+  },
+  "homepage": "https://github.com/coot/purescript-react-transition-group#readme",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-transition-group": "^1.1.3"
+  }
+}
