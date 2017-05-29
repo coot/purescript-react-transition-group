@@ -40,7 +40,7 @@ defaultCSSTransitionGroupProps =
   , transitionEnterTimeout: 300
   , transitionLeave: true
   , transitionLeaveTimeout: 300
-  , transitionAppear: true
+  , transitionAppear: false
   , transitionAppearTimeout: 300
   }
 
