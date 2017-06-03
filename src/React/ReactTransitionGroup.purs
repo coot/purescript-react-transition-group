@@ -74,13 +74,13 @@ defaultCSSTransitionGroupProps =
 
 foreign import _cssTransitionGroup :: forall props. ReactClass (CSSTransitionGroupProps props)
 
-createCssTransitionGroupElement
+createCSSTransitionGroupElement
   :: forall props
    . CSSTransitionGroupProps props
   -> props
   -> Array ReactElement
   -> ReactElement
-createCssTransitionGroupElement trGrProps props children
+createCSSTransitionGroupElement trGrProps props children
   = createElement _cssTransitionGroup propsMerged children
   where
     propsMerged = unsafeCoerce (_merge trGrProps $ unsafeCoerce props)
