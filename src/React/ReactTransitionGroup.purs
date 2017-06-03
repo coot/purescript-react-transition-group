@@ -3,7 +3,7 @@ module React.ReactTranstionGroup
   , Component
   , ComponentTransitionMethod
   , ReactTransitionSpec
-  , createCssTransitionGroupElement
+  , createCSSTransitionGroupElement
   , createTransitionReactClass
   , defaultCSSTransitionGroupProps
   , reactClassToComponent
