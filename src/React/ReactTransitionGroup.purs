@@ -1,5 +1,8 @@
 module React.ReactTranstionGroup 
   ( CSSTransitionGroupProps
+  , Component
+  , ComponentTransitionMethod
+  , ReactTransitionSpec
   , createCssTransitionGroupElement
   , createTransitionReactClass
   , defaultCSSTransitionGroupProps
