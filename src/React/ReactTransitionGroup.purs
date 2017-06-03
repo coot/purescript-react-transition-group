@@ -1,5 +1,6 @@
 module React.ReactTranstionGroup 
   ( CSSTransitionGroupProps
+  , createCssTransitionGroupElement
   , createTransitionReactClass
   , defaultCSSTransitionGroupProps
   , reactClassToComponent
@@ -9,12 +10,19 @@ module React.ReactTranstionGroup
   ) where
 
 import Control.Monad.Eff (Eff)
-import Prelude (Unit, const, flip, id, pure, unit)
-import React (ComponentDidMount, ComponentDidUpdate, ComponentWillMount, ComponentWillReceiveProps, ComponentWillUnmount, ComponentWillUpdate, GetInitialState, ReactClass, ReactElement, ReactThis, Render, ShouldComponentUpdate, TagName)
+import Prelude (Unit, const, flip, id, pure, unit, ($))
+import React (ComponentDidMount, ComponentDidUpdate, ComponentWillMount, ComponentWillReceiveProps, ComponentWillUnmount, ComponentWillUpdate, GetInitialState, ReactClass, ReactElement, ReactThis, Render, ShouldComponentUpdate, TagName, createElement)
 import React.DOM.Props (Props)
 import Unsafe.Coerce (unsafeCoerce)
 
 foreign import data Component :: Type -> Type
+
+foreign import _merge
+  :: forall r1 r2 r3
+   . Union r1 r2 r3
+  => Record r1
+  -> Record r2
+  -> Record r3
 
 reactClassToComponent :: forall props. ReactClass props -> Component props
 reactClassToComponent = unsafeCoerce
@@ -61,7 +69,18 @@ defaultCSSTransitionGroupProps =
   , transitionAppearTimeout: 300
   }
 
-foreign import cssTransitionGroup :: forall props. ReactClass (CSSTransitionGroupProps props)
+foreign import _cssTransitionGroup :: forall props. ReactClass (CSSTransitionGroupProps props)
+
+createCssTransitionGroupElement
+  :: forall props
+   . CSSTransitionGroupProps props
+  -> props
+  -> Array ReactElement
+  -> ReactElement
+createCssTransitionGroupElement trGrProps props children
+  = createElement _cssTransitionGroup propsMerged children
+  where
+    propsMerged = unsafeCoerce (_merge trGrProps $ unsafeCoerce props)
 
 type ComponentTransitionMethod props state eff
    = ReactThis props state

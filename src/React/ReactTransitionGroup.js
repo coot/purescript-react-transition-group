@@ -3,7 +3,7 @@
 var React = require("react");
 var rtg = require("react-transition-group");
 
-exports.cssTransitionGroup = rtg.CSSTransitionGroup
+exports._cssTransitionGroup = rtg.CSSTransitionGroup
 
 function createTransitionReactClass(spec) {
   var result = {
@@ -61,3 +61,9 @@ function createTransitionReactClass(spec) {
 }
 
 exports.createTransitionReactClass = createTransitionReactClass
+
+exports._merge = function(r1) {
+  return function(r2) {
+    return Object.assign({}, r2, r1)
+  }
+}
