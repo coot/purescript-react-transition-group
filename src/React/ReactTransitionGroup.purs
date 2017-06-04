@@ -1,12 +1,14 @@
-module React.ReactTranstionGroup
+module React.ReactTranstionGroup 
   ( CSSTransitionGroupProps
   , Component
   , ComponentTransitionMethod
   , ReactTransitionSpec
   , TransitionName
+  , TransitionGroupProps
   , createCSSTransitionGroupElement
   , createTransitionReactClass
   , defaultCSSTransitionGroupProps
+  , defaultTransitionGroupProps
   , reactClassToComponent
   , tagNameToComponent
   , transitionSpec
@@ -46,7 +48,6 @@ type TransitionName =
 type CSSTransitionGroupProps props =
   { component :: Component props
   , transitionName :: TransitionName
-  , childFactory :: ReactElement -> ReactElement
   , transitionAppear :: Boolean
   , transitionAppearTimeout :: Int
   , transitionLeave :: Boolean
@@ -66,7 +67,6 @@ defaultCSSTransitionGroupProps =
     , appear: "appear"
     , appearActive: "appear-active"
     }
-  , childFactory: id
   , transitionEnter: true
   , transitionEnterTimeout: 300
   , transitionLeave: true
@@ -85,6 +85,51 @@ createCSSTransitionGroupElement
   -> ReactElement
 createCSSTransitionGroupElement trGrProps props children
   = createElement _cssTransitionGroup propsMerged children
+  where
+    propsMerged = unsafeCoerce (_merge trGrProps $ unsafeCoerce props)
+
+type TransitionGroupProps props =
+  { component :: Component props
+  , transitionName :: TransitionName
+  , childFactory :: ReactElement -> ReactElement
+  , transitionAppear :: Boolean
+  , transitionAppearTimeout :: Int
+  , transitionLeave :: Boolean
+  , transitionLeaveTimeout :: Int
+  , transitionEnter :: Boolean
+  , transitionEnterTimeout :: Int
+  }
+
+defaultTransitionGroupProps :: TransitionGroupProps Props
+defaultTransitionGroupProps =
+  { component: tagNameToComponent "span"
+  , transitionName:
+    { enter: "enter"
+    , enterActive: "enter-active"
+    , leave: "leave"
+    , leaveActive: "leave-active"
+    , appear: "appear"
+    , appearActive: "appear-active"
+    }
+  , childFactory: id
+  , transitionEnter: true
+  , transitionEnterTimeout: 300
+  , transitionLeave: true
+  , transitionLeaveTimeout: 300
+  , transitionAppear: false
+  , transitionAppearTimeout: 300
+  }
+
+foreign import _transitionGroup :: forall props. ReactClass (TransitionGroupProps props)
+
+createTransitionGroupElement
+  :: forall props
+   . TransitionGroupProps props
+  -> props
+  -> Array ReactElement
+  -> ReactElement
+createTransitionGroupElement trGrProps props children
+  = createElement _transitionGroup propsMerged children
   where
     propsMerged = unsafeCoerce (_merge trGrProps $ unsafeCoerce props)
 

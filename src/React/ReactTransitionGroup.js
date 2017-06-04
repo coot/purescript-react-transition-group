@@ -4,6 +4,7 @@ var React = require("react");
 var rtg = require("react-transition-group");
 
 exports._cssTransitionGroup = rtg.CSSTransitionGroup
+exports._transitionGroup = rtg.TransitionGroup
 
 function createTransitionReactClass(spec) {
   var result = {
