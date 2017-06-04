@@ -62,8 +62,10 @@ function createTransitionReactClass(spec) {
 
 exports.createTransitionReactClass = createTransitionReactClass
 
-exports._merge = function(r1) {
-  return function(r2) {
-    return Object.assign({}, r2, r1)
+exports._merge = function(dict) {
+  return function(r1) {
+    return function(r2) {
+      return Object.assign({}, r2, r1)
+    }
   }
 }
