@@ -1,8 +1,9 @@
-module React.ReactTranstionGroup 
+module React.ReactTranstionGroup
   ( CSSTransitionGroupProps
   , Component
   , ComponentTransitionMethod
   , ReactTransitionSpec
+  , TransitionName
   , createCSSTransitionGroupElement
   , createTransitionReactClass
   , defaultCSSTransitionGroupProps
@@ -33,16 +34,18 @@ reactClassToComponent = unsafeCoerce
 tagNameToComponent :: TagName -> Component Props
 tagNameToComponent = unsafeCoerce
 
+type TransitionName =
+  { enter :: String
+  , enterActive :: String
+  , leave :: String
+  , leaveActive :: String
+  , appear :: String
+  , appearActive :: String
+  }
+
 type CSSTransitionGroupProps props =
   { component :: Component props
-  , transitionName ::
-    { enter :: String
-    , enterActive :: String
-    , leave :: String
-    , leaveActive :: String
-    , appear :: String
-    , appearActive :: String
-    }
+  , transitionName :: TransitionName
   , childFactory :: ReactElement -> ReactElement
   , transitionAppear :: Boolean
   , transitionAppearTimeout :: Int
