@@ -66,7 +66,17 @@ exports.createTransitionReactClass = createTransitionReactClass
 exports._merge = function(dict) {
   return function(r1) {
     return function(r2) {
-      return Object.assign({}, r2, r1)
+      var result = {}
+      var key
+      for(key in r2) {
+        if (r2.hasOwnProperty(key))
+          result[key] = r2[key]
+      }
+      for(key in r1) {
+        if (r1.hasOwnProperty(key))
+          result[key] = r1[key]
+      }
+      return result
     }
   }
 }
